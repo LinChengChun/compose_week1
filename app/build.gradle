@@ -72,7 +72,13 @@ dependencies {
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.navigation:navigation-compose:1.0.0-alpha07"
+
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    implementation "dev.chrisbanes.accompanist:accompanist-coil:0.6.1"
+//    implementation "dev.chrisbanes.accompanist:accompanist-mdc-theme:v0.6.1"
 
     testImplementation 'junit:junit:4.13.2'
 
