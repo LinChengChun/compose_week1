@@ -52,11 +52,11 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             MyTheme {
-                LayoutsCodeLab(dogs, onClick = {
-                    intent.putExtra("id", it.id)
-                    intent.putExtra("url", it.url)
-                    intent.putExtra("year", it.year)
-                    intent.putExtra("name", it.name)
+                LayoutsCodeLab(dogs, onClick = { dog: Dog, i: Int ->
+                    intent.putExtra("id", dog.id)
+                    intent.putExtra("url", dog.url)
+                    intent.putExtra("year", dog.year)
+                    intent.putExtra("name", dog.name+i)
                     startActivity(intent)
                 })
             }
@@ -107,7 +107,7 @@ fun DarkPreview() {
 }
 
 @Composable
-fun LayoutsCodeLab(dogs: List<Dog>,  onClick: (dog: Dog) -> Unit) {
+fun LayoutsCodeLab(dogs: List<Dog>,  onClick: (dog: Dog, i: Int) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -132,7 +132,7 @@ fun LayoutsCodeLab(dogs: List<Dog>,  onClick: (dog: Dog) -> Unit) {
 }
 
 @Composable
-fun BodyContent(modifier: Modifier = Modifier, dogs: List<Dog>, onClick: (dog: Dog) -> Unit) {
+fun BodyContent(modifier: Modifier = Modifier, dogs: List<Dog>, onClick: (dog: Dog, i: Int) -> Unit) {
     ScrollingList(modifier, dogs, onClick)
 }
 
@@ -151,7 +151,7 @@ fun LazyList() {
 
 
 @Composable
-fun PhotographerCard(modifier: Modifier = Modifier, dog: Dog, i: Int, onClick: (dog: Dog) -> Unit) {
+fun PhotographerCard(modifier: Modifier = Modifier, dog: Dog, i: Int, onClick: (dog: Dog, i: Int) -> Unit) {
     Row(
         modifier
             .fillMaxWidth()
@@ -159,7 +159,7 @@ fun PhotographerCard(modifier: Modifier = Modifier, dog: Dog, i: Int, onClick: (
             .clip(RoundedCornerShape(4.dp))
             .background(MaterialTheme.colors.surface)
             .clickable(onClick = {
-                onClick(dog)
+                onClick(dog, i)
             })
             .padding(16.dp)) {
         Surface(
@@ -203,7 +203,7 @@ fun ImageListItem(dog: Dog, i: Int) {
 }
 
 @Composable
-fun ScrollingList(modifier: Modifier, dogs: List<Dog>, onClick: (dog: Dog) -> Unit) {
+fun ScrollingList(modifier: Modifier, dogs: List<Dog>, onClick: (dog: Dog, i: Int) -> Unit) {
     val listSize = 100
     // We save the scrolling position with this state
     val scrollState = rememberLazyListState()
