@@ -116,7 +116,6 @@ fun LayoutsCodeLab(dogs: List<Dog>,  onClick: (dog: Dog, i: Int) -> Unit) {
                 },
                 actions = {
                     IconButton(onClick = {
-//                        Toast.makeText(appl, "你点击了我", Toast.LENGTH_SHORT).show()
                     }) {
                         Icon(Icons.Filled.Favorite, contentDescription = null)
                     }
