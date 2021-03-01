@@ -21,12 +21,10 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
@@ -52,13 +50,16 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             MyTheme {
-                LayoutsCodeLab(dogs, onClick = { dog: Dog, i: Int ->
-                    intent.putExtra("id", dog.id)
-                    intent.putExtra("url", dog.url)
-                    intent.putExtra("year", dog.year)
-                    intent.putExtra("name", dog.name+i)
-                    startActivity(intent)
-                })
+                LayoutsCodeLab(
+                    dogs,
+                    onClick = { dog: Dog, i: Int ->
+                        intent.putExtra("id", dog.id)
+                        intent.putExtra("url", dog.url)
+                        intent.putExtra("year", dog.year)
+                        intent.putExtra("name", dog.name + i)
+                        startActivity(intent)
+                    }
+                )
             }
         }
     }
@@ -84,13 +85,13 @@ fun NewsStory() {
     }
 }
 
-//@Preview
+// @Preview
 @Composable
 fun DefaultPreview() {
     NewsStory()
 }
 
-//@Preview("Light Theme", widthDp = 360, heightDp = 640)
+// @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
     MyTheme {
@@ -98,7 +99,7 @@ fun LightPreview() {
     }
 }
 
-//@Preview("Dark Theme", widthDp = 360, heightDp = 640)
+// @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {
     MyTheme(darkTheme = true) {
@@ -107,7 +108,7 @@ fun DarkPreview() {
 }
 
 @Composable
-fun LayoutsCodeLab(dogs: List<Dog>,  onClick: (dog: Dog, i: Int) -> Unit) {
+fun LayoutsCodeLab(dogs: List<Dog>, onClick: (dog: Dog, i: Int) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -115,8 +116,10 @@ fun LayoutsCodeLab(dogs: List<Dog>,  onClick: (dog: Dog, i: Int) -> Unit) {
                     Text(text = "Compose_week1")
                 },
                 actions = {
-                    IconButton(onClick = {
-                    }) {
+                    IconButton(
+                        onClick = {
+                        }
+                    ) {
                         Icon(Icons.Filled.Favorite, contentDescription = null)
                     }
                 }
@@ -126,7 +129,9 @@ fun LayoutsCodeLab(dogs: List<Dog>,  onClick: (dog: Dog, i: Int) -> Unit) {
         BodyContent(
             Modifier
                 .padding(innerPadding)
-                .padding(8.dp), dogs, onClick)
+                .padding(8.dp),
+            dogs, onClick
+        )
     }
 }
 
@@ -148,7 +153,6 @@ fun LazyList() {
     }
 }
 
-
 @Composable
 fun PhotographerCard(modifier: Modifier = Modifier, dog: Dog, i: Int, onClick: (dog: Dog, i: Int) -> Unit) {
     Row(
@@ -157,10 +161,13 @@ fun PhotographerCard(modifier: Modifier = Modifier, dog: Dog, i: Int, onClick: (
             .padding(8.dp)
             .clip(RoundedCornerShape(4.dp))
             .background(MaterialTheme.colors.surface)
-            .clickable(onClick = {
-                onClick(dog, i)
-            })
-            .padding(16.dp)) {
+            .clickable(
+                onClick = {
+                    onClick(dog, i)
+                }
+            )
+            .padding(16.dp)
+    ) {
         Surface(
             modifier = Modifier.size(50.dp),
             shape = CircleShape,
@@ -175,17 +182,18 @@ fun PhotographerCard(modifier: Modifier = Modifier, dog: Dog, i: Int, onClick: (
                 modifier = Modifier.size(50.dp)
             )
         }
-        Column(modifier = Modifier
-            .padding(start = 8.dp)
-            .align(Alignment.CenterVertically)) {
-            Text(dog.name+i, fontWeight = FontWeight.Bold)
+        Column(
+            modifier = Modifier
+                .padding(start = 8.dp)
+                .align(Alignment.CenterVertically)
+        ) {
+            Text(dog.name + i, fontWeight = FontWeight.Bold)
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text("3 minutes ago", style = MaterialTheme.typography.body2)
             }
         }
     }
 }
-
 
 @Composable
 fun ImageListItem(dog: Dog, i: Int) {
@@ -208,7 +216,6 @@ fun ScrollingList(modifier: Modifier, dogs: List<Dog>, onClick: (dog: Dog, i: In
     val scrollState = rememberLazyListState()
     // We save the coroutine scope where our animated scroll will be executed
     val coroutineScope = rememberCoroutineScope()
-
 
     Column {
         LazyColumn(state = scrollState) {
